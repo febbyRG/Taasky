@@ -58,6 +58,12 @@ class ContainerViewController: UIViewController, UIScrollViewDelegate {
         rotatingView.rotate(percent)
       }
     }
+    
+    /* 
+      Fix for the UIScrollView paging-related issue mentioned here:
+      http://stackoverflow.com/questions/4480512/uiscrollview-single-tap-scrolls-it-to-top
+    */
+    scrollView.pagingEnabled = scrollView.contentOffset.x < (scrollView.contentSize.width - CGRectGetWidth(scrollView.frame))
   }
   
   // MARK: Private
