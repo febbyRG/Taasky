@@ -15,11 +15,18 @@ class MenuViewController: UITableViewController {
     return NSArray(contentsOfFile: path!)
   }()
   
+  // MARK: UIViewController
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     updateSelectedMenuItem(menuItems[0] as NSDictionary)
     // Remove the drop shadow from the navigation bar
     navigationController!.navigationBar.clipsToBounds = true
+  }
+  
+  override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    tableView.reloadData()
   }
   
   // MARK: UITableViewDataSource
@@ -33,7 +40,7 @@ class MenuViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    return max(80, CGRectGetHeight(view.bounds) / 6)
+    return max(80, CGRectGetHeight(view.bounds) / CGFloat(menuItems.count))
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
